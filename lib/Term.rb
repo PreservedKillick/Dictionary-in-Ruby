@@ -24,9 +24,19 @@ class Term
     end
   end
 
+  def Term.search(term_to_find)
+    found_term = []
+    @@all_terms.each_with_index do |word, index|
+      if @@all_terms[index].word == term_to_find
+        found_term << @@all_terms[index]
+      end
+    end
+    found_term.last
+  end
+
   def initialize(word, definition)
     @word = word
-    @definition = definition
+    @definition = [definition]
   end
 
   def edit_definition (new_definition)
@@ -38,7 +48,11 @@ class Term
   end
 
   def full_term
-    @word + ": " + @definition
+    @word + ": " + @definition.join(", ")
+  end
+
+  def add_def(addtl_def)
+    @definition << addtl_def
   end
 
 end
